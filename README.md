@@ -25,7 +25,7 @@ genes.df <-
   AnnotationDbi::select(x = EnsDb.Hsapiens.v86, 
                         keys = HSensembl,       # keysに変換したいものを入れる
                         keytype = "GENEID",     # Ensdb パッケージの場合は， GENEID = Ensembl gene ID
-                        columns = "ENTREZID")
+                        columns = c("SYMBOL", "ENTREZID"))
 ```
 
 
