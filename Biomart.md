@@ -1,5 +1,17 @@
 # Biomartの便利な使い方
 
+
+```r
+ensembl=useMart("ensembl")
+
+listDatasets(ensembl)
+    ##      dataset                    description             version
+    ## 107  mmusculus_gene_ensembl     Mouse genes (GRCm39)    GRCm39
+```
+
+---------------
+
+
 #### 1 GO termにassaignされているGeneを拾ってくる
 
 #### 転写因子を拾いたい　-> Transcriptional factors GO:0003700
