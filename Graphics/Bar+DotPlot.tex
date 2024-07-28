@@ -1,0 +1,355 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  a4paper,
+  number-of-lines=30,
+  textwidth=40zw]{bxjsarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Bar+Dot\_MultiType},
+  pdfauthor={Tomohiro},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Bar+Dot\_MultiType}
+\author{Tomohiro}
+\date{2023-10-26}
+
+\begin{document}
+\maketitle
+
+\hypertarget{r-markdown}{%
+\subsection{R Markdown}\label{r-markdown}}
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+When you click the \textbf{Knit} button a document will be generated
+that includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(openxlsx)}
+\FunctionTok{library}\NormalTok{(ggsci)}
+\FunctionTok{library}\NormalTok{(cowplot)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggpubr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:cowplot':
+## 
+##     get_legend
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wd }\OtherTok{=} \StringTok{"/Users/tomohiro/Dropbox/BioInfomatics/R\_CommandList/Graphics"}
+\FunctionTok{setwd}\NormalTok{(wd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{=} \FunctionTok{read.xlsx}\NormalTok{(}\StringTok{"DemoData1\_Exp175\_ECPCarea\_Brain\_v1\_231025.xlsx"}\NormalTok{, }\AttributeTok{sheet =} \DecValTok{1}\NormalTok{, }\AttributeTok{startRow =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Age }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age,}
+                   \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"3mo"}\NormalTok{, }\StringTok{"15mo"}\NormalTok{, }\StringTok{"24mo"}\NormalTok{))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Region }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Region,}
+                      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Cortex"}\NormalTok{, }\StringTok{"CA1"}\NormalTok{, }\StringTok{"DG"}\NormalTok{, }\StringTok{"ThalamicN"}\NormalTok{, }\StringTok{"Cerebellum"}\NormalTok{, }\StringTok{"MO"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   SampleID  Age     Region
+## 1   m175-1 15mo Cerebellum
+## 2   m175-1 15mo Cerebellum
+## 3   m175-1 15mo     Cortex
+## 4   m175-1 15mo     Cortex
+## 5   m175-1 15mo     Cortex
+## 6   m175-1 15mo        CA1
+##                                                              Label Slices
+## 1 175-1_Brain_Cerebellum_CD31Ng2PdgfrbDAPI_A01_G008_0001-z1-40.oir     40
+## 2 175-1_Brain_cerebellum_CD31Ng2PdgfrbDAPI_A01_G009_0001-z1-46.oir     46
+## 3        175-1_Brain_Ctx_CD31Ng2PdgfrbDAPI_A01_G001_0001-z5-46.oir     42
+## 4        175-1_Brain_Ctx_CD31Ng2PdgfrbDAPI_A01_G002_0001-z1-44.oir     44
+## 5       175-1_Brain_Ctx_CD31Ng2PdgfrbDAPI_A01_G003_0001-z10-48.oir     39
+## 6      175-1_Brain_Hp_CA1CD31Ng2PdgfrbDAPI_A01_G005_0001-z1-50.oir     50
+##   Cd31_Area_um2 Pdgfrb_Area_um2 CD31xPdgfrb_Area_um2 PC_Coverage_percent
+## 1      16390.92       14486.847             9150.238              55.825
+## 2      11896.31       16926.327             6964.817              58.546
+## 3      10551.85        6388.550             4257.374              40.347
+## 4      15394.42        8263.607             5382.099              34.961
+## 5      10449.54        7161.026             4830.379              46.226
+## 6       7734.89        6075.783             4392.986              56.794
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# CD31 area}
+\NormalTok{g1  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Age, }\AttributeTok{y =}\NormalTok{ Cd31\_Area\_um2, }\AttributeTok{fill =}\NormalTok{ Age))}\SpecialCharTok{+}
+    \CommentTok{\# stat\_summaryで得られた平均値を用いて棒グラフを描出}
+    \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_fill\_jco}\NormalTok{()}\SpecialCharTok{+}
+    \CommentTok{\# stat\_summary で得られた平均値と標準偏差を用いてエラーバーを描出}
+    \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.max =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(x), }
+                \AttributeTok{fun.min =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(x),}
+                \AttributeTok{geom =} \StringTok{\textquotesingle{}errorbar\textquotesingle{}}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# dfの個別データをドットプロットで描出}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ Age), }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Cd31\_Area\_um2)}\SpecialCharTok{*}\FloatTok{1.1}\NormalTok{))}\SpecialCharTok{+} 
+  \CommentTok{\# 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。}
+  \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{axis.ticks =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# ラベル}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Cd31area (um\^{}2)"}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Region, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+
+  \FunctionTok{plot}\NormalTok{(g1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Bar+DotPlot_files/figure-latex/ploting-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#   ggsave("231025\_Brain\_CD31area.png", width = 10, height=5, dpi = 300)}
+
+    
+\DocumentationTok{\#\# Pdgfrb area}
+\NormalTok{g2  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Age, }\AttributeTok{y =}\NormalTok{ Pdgfrb\_Area\_um2, }\AttributeTok{fill =}\NormalTok{ Age))}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summaryで得られた平均値を用いて棒グラフを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_jco}\NormalTok{()}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summary で得られた平均値と標準偏差を用いてエラーバーを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.max =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(x), }
+               \AttributeTok{fun.min =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(x),}
+               \AttributeTok{geom =} \StringTok{\textquotesingle{}errorbar\textquotesingle{}}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# dfの個別データをドットプロットで描出}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ Age), }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Pdgfrb\_Area\_um2)}\SpecialCharTok{*}\FloatTok{1.1}\NormalTok{))}\SpecialCharTok{+} 
+  \CommentTok{\# 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。}
+  \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{axis.ticks =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# ラベル}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Pdgfrb Area (um\^{}2)"}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Region, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+
+  \FunctionTok{plot}\NormalTok{(g2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Bar+DotPlot_files/figure-latex/ploting-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#    ggsave("231025\_Brain\_Pdgfrbarea.png", width = 10, height=5, dpi = 300)}
+
+
+\DocumentationTok{\#\# Cd31xPdgfrb area}
+\NormalTok{g3  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Age, }\AttributeTok{y =}\NormalTok{ CD31xPdgfrb\_Area\_um2, }\AttributeTok{fill =}\NormalTok{ Age))}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summaryで得られた平均値を用いて棒グラフを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_jco}\NormalTok{()}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summary で得られた平均値と標準偏差を用いてエラーバーを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.max =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(x), }
+               \AttributeTok{fun.min =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(x),}
+               \AttributeTok{geom =} \StringTok{\textquotesingle{}errorbar\textquotesingle{}}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# dfの個別データをドットプロットで描出}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ Age), }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{CD31xPdgfrb\_Area\_um2)}\SpecialCharTok{*}\FloatTok{1.1}\NormalTok{))}\SpecialCharTok{+} 
+  \CommentTok{\# 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。}
+  \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{axis.ticks =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# ラベル}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Cd31xPdgfrb Area (um\^{}2)"}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Region, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+
+  \FunctionTok{plot}\NormalTok{(g3)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Bar+DotPlot_files/figure-latex/ploting-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#    ggsave("231025\_Brain\_Cd31xPdgfrbarea.png", width = 10, height=5, dpi = 300)}
+
+
+\DocumentationTok{\#\# Pericytes coverage}
+\NormalTok{g4  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Age, }\AttributeTok{y =}\NormalTok{ PC\_Coverage\_percent, }\AttributeTok{fill =}\NormalTok{ Age))}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summaryで得られた平均値を用いて棒グラフを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_jco}\NormalTok{()}\SpecialCharTok{+}
+  \CommentTok{\# stat\_summary で得られた平均値と標準偏差を用いてエラーバーを描出}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.max =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(x), }
+               \AttributeTok{fun.min =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(x),}
+               \AttributeTok{geom =} \StringTok{\textquotesingle{}errorbar\textquotesingle{}}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# dfの個別データをドットプロットで描出}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ Age), }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+  \CommentTok{\# y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PC\_Coverage\_percent)}\SpecialCharTok{*}\FloatTok{1.1}\NormalTok{))}\SpecialCharTok{+} 
+  \CommentTok{\# 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。}
+  \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{),}
+        \AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{axis.ticks =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \CommentTok{\# ラベル}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Pericyte Coverage (\%)"}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Region, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+
+  \FunctionTok{plot}\NormalTok{(g4)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Bar+DotPlot_files/figure-latex/ploting-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#    ggsave("231025\_Brain\_PCcoverage.png", width = 10, height= 5, dpi = 300)}
+  
+
+\DocumentationTok{\#\# まとめて表示}
+\NormalTok{ggpubr}\SpecialCharTok{::}\FunctionTok{ggarrange}\NormalTok{(g1, g2, g3, g4, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Bar+DotPlot_files/figure-latex/ploting-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#  ggsave("231025\_Brain\_allimages.png", width =16, height= 8, dpi = 300)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{including-plots}{%
+\subsection{Including Plots}\label{including-plots}}
+
+\end{document}

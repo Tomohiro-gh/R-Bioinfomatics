@@ -1,0 +1,176 @@
+---
+title: "Bar+Dot_MultiType"
+author: "Tomohiro"
+date: "2023-10-26"
+output:
+  pdf_document: default
+  rmdja::pdf_document2_ja:
+    latex_engine: lualatex
+documentclass: bxjsarticle
+classoption:
+- a4paper
+- "number-of-lines=30"
+- textwidth=40zw
+#bibliography: packages.bib
+link-citations: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r libs, echo=TRUE}
+library(ggplot2)
+library(openxlsx)
+library(ggsci)
+library(cowplot)
+library(ggpubr)
+```
+
+```{r wd, echo=TRUE}
+wd = "/Users/tomohiro/Dropbox/BioInfomatics/R_CommandList/Graphics"
+setwd(wd)
+```
+
+
+```{r dat, echo = TRUE}
+data = read.xlsx("DemoData1_Exp175_ECPCarea_Brain_v1_231025.xlsx", sheet = 1, startRow = 1)
+
+data$Age <- factor(data$Age,
+                   levels = c("3mo", "15mo", "24mo"))
+data$Region <- factor(data$Region,
+                      levels = c("Cortex", "CA1", "DG", "ThalamicN", "Cerebellum", "MO"))
+```
+
+```{r dat2}
+  head(data)
+```
+
+
+```{r ploting}
+## CD31 area
+g1  <- ggplot(data, aes(x = Age, y = Cd31_Area_um2, fill = Age))+
+    # stat_summaryで得られた平均値を用いて棒グラフを描出
+    stat_summary(fun = "mean", geom = "bar", width = .6) +
+    scale_fill_jco()+
+    # stat_summary で得られた平均値と標準偏差を用いてエラーバーを描出
+    stat_summary(fun.max = function(x) mean(x) + sd(x), 
+                fun.min = function(x) mean(x) - sd(x),
+                geom = 'errorbar', width = .3)+
+  # dfの個別データをドットプロットで描出
+  geom_jitter(aes(shape = Age), width = .2, size = 3)+
+  # y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする
+  scale_y_continuous(expand = c(0, 0), limits = c(0, max(data$Cd31_Area_um2)*1.1))+ 
+  # 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。
+  theme_classic()+ 
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10, color = "black"),
+        axis.ticks = element_line(color = "black"),
+        legend.position = "none") +
+  # ラベル
+  labs(x = NULL, y = "Cd31area (um^2)") + 
+  
+  facet_grid(.~ Region, scales = "free")
+
+  plot(g1)
+##   ggsave("231025_Brain_CD31area.png", width = 10, height=5, dpi = 300)
+
+    
+## Pdgfrb area
+g2  <- ggplot(data, aes(x = Age, y = Pdgfrb_Area_um2, fill = Age))+
+  # stat_summaryで得られた平均値を用いて棒グラフを描出
+  stat_summary(fun = "mean", geom = "bar", width = .6) +
+  scale_fill_jco()+
+  # stat_summary で得られた平均値と標準偏差を用いてエラーバーを描出
+  stat_summary(fun.max = function(x) mean(x) + sd(x), 
+               fun.min = function(x) mean(x) - sd(x),
+               geom = 'errorbar', width = .3)+
+  # dfの個別データをドットプロットで描出
+  geom_jitter(aes(shape = Age), width = .2, size = 3)+
+  # y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする
+  scale_y_continuous(expand = c(0, 0), limits = c(0, max(data$Pdgfrb_Area_um2)*1.1))+ 
+  # 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。
+  theme_classic()+ 
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10, color = "black"),
+        axis.ticks = element_line(color = "black"),
+        legend.position = "none") +
+  # ラベル
+  labs(x = NULL, y = "Pdgfrb Area (um^2)") + 
+  
+  facet_grid(.~ Region, scales = "free")
+
+  plot(g2)
+##    ggsave("231025_Brain_Pdgfrbarea.png", width = 10, height=5, dpi = 300)
+
+
+## Cd31xPdgfrb area
+g3  <- ggplot(data, aes(x = Age, y = CD31xPdgfrb_Area_um2, fill = Age))+
+  # stat_summaryで得られた平均値を用いて棒グラフを描出
+  stat_summary(fun = "mean", geom = "bar", width = .6) +
+  scale_fill_jco()+
+  # stat_summary で得られた平均値と標準偏差を用いてエラーバーを描出
+  stat_summary(fun.max = function(x) mean(x) + sd(x), 
+               fun.min = function(x) mean(x) - sd(x),
+               geom = 'errorbar', width = .3)+
+  # dfの個別データをドットプロットで描出
+  geom_jitter(aes(shape = Age), width = .2, size = 3)+
+  # y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする
+  scale_y_continuous(expand = c(0, 0), limits = c(0, max(data$CD31xPdgfrb_Area_um2)*1.1))+ 
+  # 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。
+  theme_classic()+ 
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10, color = "black"),
+        axis.ticks = element_line(color = "black"),
+        legend.position = "none") +
+  # ラベル
+  labs(x = NULL, y = "Cd31xPdgfrb Area (um^2)") + 
+  
+  facet_grid(.~ Region, scales = "free")
+
+  plot(g3)
+##    ggsave("231025_Brain_Cd31xPdgfrbarea.png", width = 10, height=5, dpi = 300)
+
+
+## Pericytes coverage
+g4  <- ggplot(data, aes(x = Age, y = PC_Coverage_percent, fill = Age))+
+  # stat_summaryで得られた平均値を用いて棒グラフを描出
+  stat_summary(fun = "mean", geom = "bar", width = .6) +
+  scale_fill_jco()+
+  # stat_summary で得られた平均値と標準偏差を用いてエラーバーを描出
+  stat_summary(fun.max = function(x) mean(x) + sd(x), 
+               fun.min = function(x) mean(x) - sd(x),
+               geom = 'errorbar', width = .3)+
+  # dfの個別データをドットプロットで描出
+  geom_jitter(aes(shape = Age), width = .2, size = 3)+
+  # y軸の範囲を設定、プロット領域の拡張をゼロに設定することで棒グラフが浮かないようにする
+  scale_y_continuous(expand = c(0, 0), limits = c(0, max(data$PC_Coverage_percent)*1.1))+ 
+  # 体裁を整える。classicだけではいくつかの部品の色が黒ではないため、修正。凡例はお好みで。
+  theme_classic()+ 
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10, color = "black"),
+        axis.ticks = element_line(color = "black"),
+        legend.position = "none") +
+  # ラベル
+  labs(x = NULL, y = "Pericyte Coverage (%)") + 
+  
+  facet_grid(.~ Region, scales = "free")
+
+  plot(g4)
+##    ggsave("231025_Brain_PCcoverage.png", width = 10, height= 5, dpi = 300)
+  
+
+## まとめて表示
+ggpubr::ggarrange(g1, g2, g3, g4, nrow = 2, ncol = 2)
+##  ggsave("231025_Brain_allimages.png", width =16, height= 8, dpi = 300)
+
+```
+## Including Plots
+
+
