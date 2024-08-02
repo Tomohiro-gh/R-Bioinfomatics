@@ -46,3 +46,9 @@ names(df)names(df)[which(names(df) == objectname)] <- "ID"
 names(df)names(df)[which(names(df) == "xxxxx")] <- "ID"
 
 ```
+
+・　[参考3)](https://keachmurakami.github.io/2016/04/01/colnames.html) : 中間生成なしでカラムの名前を変える５つの方法
+`dplyr::rename`, `magrittr::set_names`, `data.table::setnames`, `select`, `dplyr::tranmute`
+
+を使うと良いが，　個人的には`dplyr::rename`が使いやすい
+
