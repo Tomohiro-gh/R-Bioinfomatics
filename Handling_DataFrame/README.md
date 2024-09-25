@@ -52,3 +52,63 @@ names(df)names(df)[which(names(df) == "xxxxx")] <- "ID"
 
 を使うと良いが，　個人的には`dplyr::rename`が使いやすい
 
+
+-------------------------------------
+## NAが入っている要素も省略しない （defaultではomitされる）
+refs) [Do not remove na values in ggplot](https://stackoverflow.com/questions/33501519/do-not-remove-na-values-in-ggplot)
+
+`geom_point`を2回使う 
+- 1回目は，naに対して．全て白で塗る　`geom_point(data = subset(df, is.na(p_val_adj)，
+color = "white")`
+- 2回目は，`geom_point(data = subset(df, !is.na(p_val_adj)),
+ aes(color = avg_log2FC, 
+size = -log10(p_val_adj)))`
+
+                   
+```r
+## 例) 240718_GOI_Expression.R 
+FUN.DotPlot.Jisaku <- function(DEG_df, GeneList, FileName = NULL){
+  
+  comp = DEG_df$Comparison %>% unique()
+    #print(comp)
+  df <- data.frame(Comparison = rep(comp, length(GeneList)),
+                   Gene = GeneList)
+  ## DFの結合
+  DFcombined <- left_join(df, DEG_df, by = c("Comparison", "Gene")) %>% 
+    filter(Gene %in% GeneList) %>% 
+    dplyr::mutate(p_val_adj = 
+                    ifelse(p_val_adj <= 1e-50, 1e-50,
+                           p_val_adj))# %>% 
+   # sort(Comparison)
+  ## 並び順変更
+  DFcombined$Comparison <- factor(x = DFcombined$Comparison,
+                                  levels = comp)
+  DFcombined$Gene <- factor(x = DFcombined$Gene,
+                            levels = GeneList)  
+      print(DFcombined$Comparison)
+  ## 本体
+dp <- 
+  ggplot(data = DFcombined,
+               aes(x = Gene,
+                   y = Comparison)) + 
+    geom_point(data = subset(DFcombined, is.na(p_val_adj)),
+               color = "white") + 
+    geom_point(data = subset(DFcombined, !is.na(p_val_adj)),
+               aes(color = avg_log2FC,
+                   size = -log10(p_val_adj))) +
+    # scale_size_continuous(limits = c(-3, 3)) +
+    # scale_color_gradientn(colours = viridis::inferno(100),
+    scale_color_gradientn(colours = viridis::viridis(100),
+                          limits = c(min(DFcombined$avg_log2FC), 
+                                     max(DFcombined$avg_log2FC))) + 
+    scale_size_continuous(limits = c(0, 
+                                     max(-log10(DFcombined$p_val_adj)))) +
+    # plot.margin = unit(c(1, 1, -1, 1), "lines")) + 
+    labs(title = "DEGs, pvalue x Fold Changes", x = "", y = "") + 
+    theme_classic() +
+    MyTheme
+  
+      plot(dp)
+
+
+```
