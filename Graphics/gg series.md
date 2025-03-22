@@ -1,6 +1,18 @@
 ## ggシリーズまとめ
 
+## ggsignif
+```r
+install.packages("ggsignif") 
+```
+## ggrepel
 
+## ggsci
+
+```r
+install.packages("ggsci")
+```
+
+## 
 
 ### ggeasy
 ref)
