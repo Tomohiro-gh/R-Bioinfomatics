@@ -1,6 +1,20 @@
 # R-data-frame-handling
 R data frame handling (memo)
 
+##  <span style="color: `#007AFF`"> data frame内の文字列置換 -  stringr package</span>
+
+#### data frame内の特定のカラムの文字列を置換する
+```r
+df <- df %>% 
+  dplyr::mutate(ColX = gsub(, pattern = "Atf3\\+", replacement = "AX"))
+
+```
+#### data frame内の全ての文字列を置換する
+```r
+brain@meta.data <- brain@meta.data %>% 
+  mutate_all(., ~ str_replace(., pattern = "Cap-Atf3\\+", replacement = "Cap-Angiogenic"))
+ ``` 
+
 
 ##  <span style="color: `#007AFF`">重複なしのrownamesを作成</span>
 ref) https://staffblog.amelieff.jp/entry/2021/10/05/120000
