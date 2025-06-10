@@ -3,16 +3,20 @@ R data frame handling (memo)
 
 ##  <span style="color: `#007AFF`"> data frame内の文字列置換 -  stringr package</span>
 
-#### data frame内の特定のカラムの文字列を置換する
+#### - 1 data frame内の特定のカラムの文字列を置換する
+
 ```r
 df <- df %>% 
-  dplyr::mutate(ColX = gsub(, pattern = "Atf3\\+", replacement = "AX"))
+  dplyr::mutate(ColX = str_replace(, pattern = "Atf3\\+", replacement = "AX"))
 
 ```
-#### data frame内の全ての文字列を置換する
+
+#### - 2 data frame内の全ての文字列を置換する
+・ `dplyr::mutate_all`
+・ `~ str_replace`
 ```r
-brain@meta.data <- brain@meta.data %>% 
-  mutate_all(., ~ str_replace(., pattern = "Cap-Atf3\\+", replacement = "Cap-Angiogenic"))
+df <- df %>% 
+  mutate_all(., ~ str_replace(., pattern = "Atf3\\+", replacement = "AX"))
  ``` 
 
 
