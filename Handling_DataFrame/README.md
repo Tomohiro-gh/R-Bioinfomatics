@@ -171,7 +171,10 @@ FUN.DEG_to_LIST <- function(DEG_df, CL_name, n_top){
 
 #> Example
 #> 上位 300個の遺伝子を stageごとにまとめてリストにする
-EC_UP_List <- FUN.DEG_to_LIST(CL_name = "stage", n_top = 300)
+EC_UP_List <-
+    DEG_df　|>
+    dplyr::filter(cluster == "EC") |>
+    FUN.DEG_to_LIST(CL_name = "stage", n_top = 300)
 
 ```
 Output: 名前付きリストが生成される
