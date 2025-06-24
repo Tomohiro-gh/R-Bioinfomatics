@@ -130,3 +130,48 @@ dp <-
 
 
 ```
+
+-------------------------------------
+
+##  <span style="color: `#007AFF`"> 特定のカラムをリストへ変換する</span>
+#### 例として，　DEG list (colnamesに `gene`, `cluster`, `stage`がある場合）
+```r
+##
+DEG_df # data.frame()
+
+#> 1 DEGをリストとしてとりだす
+FUN.DEG_to_LIST <- function(DEG_df, CL_name, n_top){
+  
+  require(rlang)
+  
+  list_top100 <- list() #空のリストを生成
+  
+  # 文字列のCL_nameをシンボルに変換
+  CL_sym <- sym(CL_name) # ここで文字列をシンボルに変換
+
+  for(i in levels(DEG_df[[CL_name]])){ # DEG_df[[CL_name]] は文字列でOK
+    alis <-
+      DEG_df |>
+      as_tibble() |>
+      dplyr::filter(!!CL_sym == i) |> # ここで !! と変換したシンボルを使う
+      pull(gene) |>
+      bitr(fromType="SYMBOL", toType="ENTREZID", OrgDb="org.Mm.eg.db") |>
+      slice_head(n = n_top) |>
+      pull(ENTREZID) |>
+      list() |>
+      setNames(i)
+      
+    list_top100 <- c(list_top100, alis)
+    
+  } # end loop i ---
+  
+  return(list_top100)
+
+} ## end function --------------------
+
+#> Example
+#> 上位 300個の遺伝子を stageごとにまとめてリストにする
+EC_UP_List <- FUN.DEG_to_LIST(CL_name = "stage", n_top = 300)
+
+```
+Output: 名前付きリストが生成される
