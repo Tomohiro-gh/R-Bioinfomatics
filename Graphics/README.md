@@ -44,8 +44,18 @@ myTHEME <- theme(
   panel.background = element_blank(), 
   text = element_text(size = 12))
 
-
 ```
+
+#### Theme option
+-　`panel.grid.major = element_blank()` 背景の主グリッドを消す
+
+-　`panel.grid.minor = element_blank()` 背景の主グリッドを消す
+
+-　`panel.background = element_blank()` 背景を透明にする
+
+-　`axis.ticks.length = unit(4, "mm")` メモリのヒゲの長さ，内向きはマイナス
+
+
 ## 軸目盛りの長さの制御 (内向きも含む)
 参考) https://qiita.com/kattsu2003/items/266e1a0709961f5ba81f
 theme内の unitの長さで変更可能
