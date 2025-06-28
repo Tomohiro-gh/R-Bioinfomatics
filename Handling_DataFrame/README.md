@@ -183,7 +183,7 @@ Output: 名前付きリストが生成される
 
 ##名前付きリストを生成する
 ##### exmaple: gmtファイルを読み込んで，　リスト化する，　しかも　名前付きで．
-```
+```r
 #> gmtファイルが複数格納されているフォルダから読み込んでいく
 list_path <- '/Path/to/MSigDB/Angiogenesis_mouse/'
 list <- list.files(list_path ,pattern = ".gmt$")
