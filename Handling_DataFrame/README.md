@@ -178,3 +178,31 @@ EC_UP_List <-
 
 ```
 Output: 名前付きリストが生成される
+
+-------------------
+
+##名前付きリストを生成する
+##### exmaple: gmtファイルを読み込んで，　リスト化する，　しかも　名前付きで．
+```
+#> gmtファイルが複数格納されているフォルダから読み込んでいく
+list_path <- '/Path/to/MSigDB/Angiogenesis_mouse/'
+list <- list.files(list_path ,pattern = ".gmt$")
+
+# Angiogeensis gene リストの作成
+ANG <- list()
+
+for(l in 1:length(list)){
+  
+  tmp <- read.gmt(paste0(list_path, list[l]))
+  
+  tmp_list <- tmp$gene |>
+    list() |>
+    stats::setNames(unique(tmp$term))
+
+  ANG <- c(ANG, tmp_list)
+}
+  #> 確認
+  ANG
+```
+- ポイントはリストに１つずつ，名前をつけてから `c`で結合していく．
+- `names`関数でリストに名前をつけようとしてもうまくいかなかったのでこの方法で．
