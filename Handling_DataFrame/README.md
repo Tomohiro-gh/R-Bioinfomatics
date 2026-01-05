@@ -1,6 +1,25 @@
 # R-data-frame-handling
 R data frame handling (memo)
 
+## <span style="color: `#007AFF`"> パイプ演算子を使ってfactor型にする -  stringr package</span>
+```r
+library(forcats)
+
+iris$Species %>% unique()
+# [1] setosa     versicolor virginica 
+# Levels: setosa versicolor virginica
+
+
+iris <- iris |>
+dplyr::mutate(Species =
+  forcats::fct_relevel(
+    factor(Species), c("virginica", "versicolor", "setosa")))
+
+
+```
+
+
+
 ##  <span style="color: `#007AFF`"> data frame内の文字列置換 -  stringr package</span>
 
 #### - 1 data frame内の特定のカラムの文字列を置換する
