@@ -1,16 +1,14 @@
 
 install.packages('Seurat')
-remotes::install_github("satijalab/seurat-data", "seurat5", quiet = TRUE)
-remotes::install_github("satijalab/azimuth", "seurat5", quiet = TRUE)
-remotes::install_github("satijalab/seurat-wrappers", "seurat5", quiet = TRUE)
-remotes::install_github("satijalab/signac", "seurat5", quiet = TRUE)
-
-remotes::install_github("stuart-lab/seurat-data", "seurat5", quiet = TRUE)
-
+remotes::install_github("satijalab/seurat-data")
+remotes::install_github("satijalab/azimuth")
+remotes::install_github("satijalab/seurat-wrappers")
+remotes::install_github("stuart-lab/signac", ref = "develop")
+remotes::install_github("stuart-lab/seurat-data", "seurat5")
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
-remotes::install_github("mojaveazure/seurat-disk")
+remotes::install_github("mojaveazure/seurat-disk", force = TRUE)
 
 
 if (!require("BiocManager", quietly = TRUE))
@@ -111,8 +109,14 @@ BiocManager::install("GSVA")
 BiocManager::install("singscore")
 
 
+# doublets finder
+remotes::install_github('chris-mcginnis-ucsf/DoubletFinder')
+BiocManager::install("scDblFinder")
 
-# calculation
+
+
+
+## --------------  calculation
 install.packages("devtools")
 install.packages("openxlsx", dependencies = TRUE)
 install.packages("dplyr")
@@ -134,7 +138,7 @@ BiocManager::install("corrgram") # DESeq2で使用
 BiocManager::install("pcaExplorer")
 BiocManager::install("vsn", force=TRUE)
 BiocManager::install("clusterProfiler")
-
+BiocManager::install("ReactomePA")
 
 
 # gene id をgene symbolの変換等に
@@ -144,15 +148,18 @@ BiocManager::install("org.Dr.eg.db")
 BiocManager::install("org.Mm.eg.db", force = TRUE)
 BiocManager::install("org.Hs.eg.db", force = TRUE)
 BiocManager::install("biomaRt", force = TRUE)
-
+install.packages("msigdbr")
 
 ## Graphics
 install.packages("tidyverse")
 install.packages("ggplot2") 
 install.packages("ggrepel") #organize the labels nicely using the "ggrepel" package and the geom_text_repel() function
 install.packages("ggsignif") 
+
+c("ggarchery")
 install.packages("pheatmap")
 install.packages("ggVennDiagram")
+install.packages("ggvenn")
 install.packages("shiny")
 BiocManager::install("dittoSeq")
 install.packages("RColorBrewer")
@@ -174,12 +181,16 @@ devtools::install_github('dgkf/ggpackets', build_vignettes = TRUE)
 install.packages("wesanderson")
 install.packages("scales")
 
+install.packages('ComplexUpset') #https://krassowski.github.io/complex-upset/index.html
+install.packages("ggeasy")
+
 
 
 
 
 
 ## statistics
+install.packages("exactRankTests")
 
 
 
@@ -194,6 +205,11 @@ install.packages("devtools")
 # Use devtools to install hdf5r and loomR from GitHub
 devtools::install_github(repo = "hhoeflin/hdf5r")
 devtools::install_github(repo = "mojaveazure/loomR", ref = "develop")
+
+
+#> 12/08/24
+devtools::install_github("cellgeni/sceasy")
+BiocManager::install(c("LoomExperiment", "SingleCellExperiment"))
 
 
 
