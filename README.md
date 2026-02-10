@@ -1,6 +1,22 @@
 # R-Bioinfomatics
 Bioinfomatical handling
 
+#> 自作functionのロード
+```r
+## ------------------------------------------------------------------
+## Load a script only to my environment
+Dir="path_to_/LoadingFunctions/"
+  (scripts <-  list.files(Dir, pattern = ".R$"))
+
+.myfunc.env = new.env()
+for(sc in scripts){
+  sys.source(paste0(Dir, sc), envir = .myfunc.env ) # localにload
+}
+attach(.myfunc.env)
+## -----------------------------------------------------------------
+
+```
+
 ## Gene ID conversion
 #### Gene ID Conversion 大きく分けて３つのやり方あり -> 1) MapIDs 2) Ensdb 3) BiomaRt
 ref: https://zenn.dev/rchiji/articles/99bf231c92aad9

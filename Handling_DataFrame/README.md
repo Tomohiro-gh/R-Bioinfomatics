@@ -1,6 +1,43 @@
 # R-data-frame-handling
 R data frame handling (memo)
 
+## <span style="color: `#007AFF`"> パイプ演算子を使ってfactor型にする -  stringr package</span>
+```r
+library(forcats)
+
+iris$Species %>% unique()
+# [1] setosa     versicolor virginica 
+# Levels: setosa versicolor virginica
+
+
+iris <- iris |>
+dplyr::mutate(Species =
+  forcats::fct_relevel(
+    factor(Species), c("virginica", "versicolor", "setosa")))
+
+
+```
+
+
+
+##  <span style="color: `#007AFF`"> data frame内の文字列置換 -  stringr package</span>
+
+#### - 1 data frame内の特定のカラムの文字列を置換する
+
+```r
+df <- df %>% 
+  dplyr::mutate(ColX = str_replace(, pattern = "Atf3\\+", replacement = "AX"))
+
+```
+
+#### - 2 data frame内の全ての文字列を置換する
+・ `dplyr::mutate_all`
+・ `~ str_replace`
+```r
+df <- df %>% 
+  mutate_all(., ~ str_replace(., pattern = "Atf3\\+", replacement = "AX"))
+ ``` 
+
 
 ##  <span style="color: `#007AFF`">重複なしのrownamesを作成</span>
 ref) https://staffblog.amelieff.jp/entry/2021/10/05/120000
@@ -52,3 +89,139 @@ names(df)names(df)[which(names(df) == "xxxxx")] <- "ID"
 
 を使うと良いが，　個人的には`dplyr::rename`が使いやすい
 
+
+-------------------------------------
+## NAが入っている要素も省略しない （defaultではomitされる）
+refs) [Do not remove na values in ggplot](https://stackoverflow.com/questions/33501519/do-not-remove-na-values-in-ggplot)
+
+`geom_point`を2回使う 
+- 1回目は，naに対して．全て白で塗る　`geom_point(data = subset(df, is.na(p_val_adj)，
+color = "white")`
+- 2回目は，`geom_point(data = subset(df, !is.na(p_val_adj)),
+ aes(color = avg_log2FC, 
+size = -log10(p_val_adj)))`
+
+                   
+```r
+## 例) 240718_GOI_Expression.R 
+FUN.DotPlot.Jisaku <- function(DEG_df, GeneList, FileName = NULL){
+  
+  comp = DEG_df$Comparison %>% unique()
+    #print(comp)
+  df <- data.frame(Comparison = rep(comp, length(GeneList)),
+                   Gene = GeneList)
+  ## DFの結合
+  DFcombined <- left_join(df, DEG_df, by = c("Comparison", "Gene")) %>% 
+    filter(Gene %in% GeneList) %>% 
+    dplyr::mutate(p_val_adj = 
+                    ifelse(p_val_adj <= 1e-50, 1e-50,
+                           p_val_adj))# %>% 
+   # sort(Comparison)
+  ## 並び順変更
+  DFcombined$Comparison <- factor(x = DFcombined$Comparison,
+                                  levels = comp)
+  DFcombined$Gene <- factor(x = DFcombined$Gene,
+                            levels = GeneList)  
+      print(DFcombined$Comparison)
+  ## 本体
+dp <- 
+  ggplot(data = DFcombined,
+               aes(x = Gene,
+                   y = Comparison)) + 
+    geom_point(data = subset(DFcombined, is.na(p_val_adj)),
+               color = "white") + 
+    geom_point(data = subset(DFcombined, !is.na(p_val_adj)),
+               aes(color = avg_log2FC,
+                   size = -log10(p_val_adj))) +
+    # scale_size_continuous(limits = c(-3, 3)) +
+    # scale_color_gradientn(colours = viridis::inferno(100),
+    scale_color_gradientn(colours = viridis::viridis(100),
+                          limits = c(min(DFcombined$avg_log2FC), 
+                                     max(DFcombined$avg_log2FC))) + 
+    scale_size_continuous(limits = c(0, 
+                                     max(-log10(DFcombined$p_val_adj)))) +
+    # plot.margin = unit(c(1, 1, -1, 1), "lines")) + 
+    labs(title = "DEGs, pvalue x Fold Changes", x = "", y = "") + 
+    theme_classic() +
+    MyTheme
+  
+      plot(dp)
+
+
+```
+
+-------------------------------------
+
+##  <span style="color: `#007AFF`"> 特定のカラムをリストへ変換する</span>
+#### 例として，　DEG list (colnamesに `gene`, `cluster`, `stage`がある場合）
+```r
+##
+DEG_df # data.frame()
+
+#> 1 DEGをリストとしてとりだす
+FUN.DEG_to_LIST <- function(DEG_df, CL_name, n_top){
+  
+  require(rlang)
+  
+  list_top100 <- list() #空のリストを生成
+  
+  # 文字列のCL_nameをシンボルに変換
+  CL_sym <- sym(CL_name) # ここで文字列をシンボルに変換
+
+  for(i in levels(DEG_df[[CL_name]])){ # DEG_df[[CL_name]] は文字列でOK
+    alis <-
+      DEG_df |>
+      as_tibble() |>
+      dplyr::filter(!!CL_sym == i) |> # ここで !! と変換したシンボルを使う
+      pull(gene) |>
+      bitr(fromType="SYMBOL", toType="ENTREZID", OrgDb="org.Mm.eg.db") |>
+      slice_head(n = n_top) |>
+      pull(ENTREZID) |>
+      list() |>
+      setNames(i)
+      
+    list_top100 <- c(list_top100, alis)
+    
+  } # end loop i ---
+  
+  return(list_top100)
+
+} ## end function --------------------
+
+#> Example
+#> 上位 300個の遺伝子を stageごとにまとめてリストにする
+EC_UP_List <-
+    DEG_df　|>
+    dplyr::filter(cluster == "EC") |>
+    FUN.DEG_to_LIST(CL_name = "stage", n_top = 300)
+
+```
+Output: 名前付きリストが生成される
+
+-------------------
+
+##名前付きリストを生成する
+##### exmaple: gmtファイルを読み込んで，　リスト化する，　しかも　名前付きで．
+```r
+#> gmtファイルが複数格納されているフォルダから読み込んでいく
+list_path <- '/Path/to/MSigDB/Angiogenesis_mouse/'
+list <- list.files(list_path ,pattern = ".gmt$")
+
+# Angiogeensis gene リストの作成
+ANG <- list()
+
+for(l in 1:length(list)){
+  
+  tmp <- read.gmt(paste0(list_path, list[l]))
+  
+  tmp_list <- tmp$gene |>
+    list() |>
+    stats::setNames(unique(tmp$term))
+
+  ANG <- c(ANG, tmp_list)
+}
+  #> 確認
+  ANG
+```
+- ポイントはリストに１つずつ，名前をつけてから `c`で結合していく．
+- `names`関数でリストに名前をつけようとしてもうまくいかなかったのでこの方法で．
